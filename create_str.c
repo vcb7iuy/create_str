@@ -34,7 +34,7 @@ int main( int argc, char** argv ) {
 
   /* 引数の確認 */
   if ( argc < 2 ) {
-    printf("Usese: <プログラム名> <オプション値>\n");
+    printf("Usege: <プログラム名> <オプション値>\n");
     printf("オプション値:\n");
     printf("-a: all\n");
     printf("-n: number\n");
