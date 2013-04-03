@@ -69,8 +69,8 @@ int main( int argc, char** argv ) {
   }
 
   /* 文字列生成に使う文字の設定 */
-  char use_str[ sizeof(number) + sizeof(upper)
-                + sizeof(lower) + sizeof(symbol) + 1 ];   // 文字列生成に使う文字
+  char use_str[ strlen(number) + strlen(upper)
+                + strlen(lower) + strlen(symbol) + 1 ];   // 文字列生成に使う文字
   memset( use_str, '\0', sizeof(use_str) );
 
   if ( flag[ALL] ) {
