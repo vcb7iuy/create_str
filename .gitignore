@@ -16,4 +16,5 @@
 *.out
 *.app
 
-*~
+Makefile~
+create_str
