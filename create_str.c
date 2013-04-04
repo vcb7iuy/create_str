@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <error.h>
 
 #define BUFFERSIZE 20
 #define ON 1
