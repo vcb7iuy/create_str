@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <error.h>
 
 #define BUFFERSIZE 20
 #define ON 1
@@ -34,13 +35,13 @@ int main( int argc, char** argv ) {
 
   /* 引数の確認 */
   if ( argc < 2 ) {
-    printf("Usege: <プログラム名> <オプション値>\n");
-    printf("オプション値:\n");
-    printf("-a: all\n");
-    printf("-n: number\n");
-    printf("-u: upper char\n");
-    printf("-l: lower char\n");
-    printf("-s: symbol\n");
+    fprintf(stderr, "Usege: <プログラム名> <オプション値>\n");
+    fprintf(stderr, "オプション値:\n");
+    fprintf(stderr, "-a: all\n");
+    fprintf(stderr, "-n: number\n");
+    fprintf(stderr, "-u: upper char\n");
+    fprintf(stderr, "-l: lower char\n");
+    fprintf(stderr, "-s: symbol\n");
     exit(1);
   }
 
@@ -107,10 +108,25 @@ int main( int argc, char** argv ) {
 
 /* 文字列を生成する関数 */
 void create_str( const char* const use_str ) {
-  char str[BUFFERSIZE + 1];                 // 生成文字列  +1: '\0'用
+  char* str;                                 // 生成文字列
+  str = (char *)malloc( BUFFERSIZE + 1 );    // +1: '\0'用
+
+  if ( !str ) {
+    perror("error: str");
+    exit(1);
+  }
+  
   memset( str, '\0', sizeof(str) );
   
-  const char* tmp_str[BUFFERSIZE + 1];      // 文字へのポインタ
+  const char** tmp_str;                      // 文字へのポインタ
+  tmp_str = (const char **)malloc( BUFFERSIZE + 1 );
+
+  if ( !tmp_str ) {
+    perror("error: tmp_str");
+    free(str);
+    exit(1);
+  }
+  
   memset( tmp_str, (int)NULL, sizeof(tmp_str) );
   
   /* 文字列を生成 */
@@ -140,6 +156,9 @@ void create_str( const char* const use_str ) {
     i++;
     printf("%s\n", str);
   }
+
+  free(str);
+  free(tmp_str);
   
   return ;
 }
