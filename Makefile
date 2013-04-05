@@ -1,15 +1,12 @@
 CC			= gcc
 CFLAGS		= -g -Wall
-INCLUDES	= 
+INCLUDES	= -c
 LDFLAGS		= 
 LIBS		= 
-OBJS		= create_str.o
+OBJS		= main.o create_str.o
 PROGRAM		= create_str
 
 $(PROGRAM):	$(OBJS)
-			$(CC) $(LDFLAGS) $(LIBS) $(OBJS) -o $(PROGRAM)
-
-create_str:	create_str.c	
-			$(CC) $(CFLAGS) $(INCLUDES) $@.c -o $@
+			$(CC) $(LDFLAGS) $(LIBS) $(OBJS) -o $(PROGRAM) 
 
 clean:;		rm -f *.o *~ $(PROGRAM)
