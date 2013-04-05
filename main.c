@@ -3,7 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUFFERSIZE 20
+#include "create_str.h"
+
 #define ON 1
 #define OFF 0
 #define OPTION 5
@@ -15,8 +16,6 @@ enum {
   LOW,
   SYM,  
 };
-
-void create_str( const char* const );  // 文字列を生成する関数
 
 const char number[] = "0123456789";
 const char upper[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -100,47 +99,6 @@ int main( int argc, char** argv ) {
   if ( use_str[0] ) {
     create_str( use_str );    // 文字列を生成
   }
-    
+
   return 0;
 }
-
-
-/* 文字列を生成する関数 */
-void create_str( const char* const use_str ) {
-  char str[BUFFERSIZE + 1];                 // 生成文字列  +1: '\0'用
-  memset( str, '\0', sizeof(str) );
-  
-  const char* tmp_str[BUFFERSIZE + 1];      // 文字へのポインタ
-  memset( tmp_str, (int)NULL, sizeof(tmp_str) );
-  
-  /* 文字列を生成 */
-  int i = 0;
-  int j = 0;
-  int length = 1;
-  while ( length <= BUFFERSIZE ) {
-    tmp_str[0] = use_str + i;
-
-    for ( j = 0; j < length && length <= BUFFERSIZE; j++ ) { 
-      if ( !(*tmp_str[j]) ) {           // '\0'の場合、繰り上げ処理を実行
-        tmp_str[j] = use_str;
-        i = 0;
-
-        if ( !tmp_str[j+1] ) {          // NULLの場合、繰り上げ先を初期化
-          tmp_str[j+1] = use_str;       
-          length++;
-        }
-        else {
-          tmp_str[j+1]++;
-        }
-      }
-      
-      str[j] = *tmp_str[j];
-    }
-
-    i++;
-    printf("%s\n", str);
-  }
-  
-  return ;
-}
-

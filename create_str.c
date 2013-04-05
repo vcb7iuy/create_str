@@ -1,109 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
-#define BUFFERSIZE 20
-#define ON 1
-#define OFF 0
-#define OPTION 5
-
-enum {
-  ALL,
-  NUM,
-  UP,
-  LOW,
-  SYM,  
-};
-
-void create_str( const char* const );  // 文字列を生成する関数
-
-const char number[] = "0123456789";
-const char upper[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const char lower[] = "abcdefghijklmnopqrstuvwxyz";
-const char symbol[] = " !\"#$%&'()*+,-./:;<=>\?@[\\]^_`{|}~";
-
-int main( int argc, char** argv ) {
-  int flag[OPTION];
-
-  flag[ALL] = OFF;
-  flag[NUM] = OFF;
-  flag[UP] = OFF;
-  flag[LOW] = OFF;
-  flag[SYM] = OFF;
-
-  /* 引数の確認 */
-  if ( argc < 2 ) {
-    fprintf(stderr, "Usege: <プログラム名> <オプション値>\n");
-    fprintf(stderr, "オプション値:\n");
-    fprintf(stderr, "-a: all\n");
-    fprintf(stderr, "-n: number\n");
-    fprintf(stderr, "-u: upper char\n");
-    fprintf(stderr, "-l: lower char\n");
-    fprintf(stderr, "-s: symbol\n");
-    exit(1);
-  }
-
-  /* 引数の処理 */
-  int opt;
-  while ( ( opt = getopt( argc, argv, "anuls" ) ) != -1 ) {
-    switch( opt ) {
-    case 'a':
-      flag[ALL] = ON;
-      break;
-    case 'n':
-      flag[NUM] = ON;
-      break;
-    case 'u':
-      flag[UP] = ON;
-      break;
-    case 'l':
-      flag[LOW] = ON;
-      break;
-    case 's':
-      flag[SYM] = ON;
-      break;
-    default:
-      ;
-    }
-  }
-
-  /* 文字列生成に使う文字の設定 */
-  char use_str[ strlen(number) + strlen(upper)
-                + strlen(lower) + strlen(symbol) + 1 ];   // 文字列生成に使う文字
-  memset( use_str, '\0', sizeof(use_str) );
-
-  if ( flag[ALL] ) {
-    strcat( use_str, number );
-    strcat( use_str, upper );
-    strcat( use_str, lower );
-    strcat( use_str, symbol );
-  }
-  else {
-    if ( flag[NUM] ) {
-      strcat( use_str, number );
-    }
-    
-    if ( flag[UP] ) {
-      strcat( use_str, upper );
-    }
-    
-    if ( flag[LOW] ) {
-      strcat( use_str, lower );
-    }
-    
-    if ( flag[SYM] ) {
-      strcat( use_str, symbol );
-    }
-  }
-
-  if ( use_str[0] ) {
-    create_str( use_str );    // 文字列を生成
-  }
-    
-  return 0;
-}
-
+#include "create_str_p.h"
 
 /* 文字列を生成する関数 */
 void create_str( const char* const use_str ) {
@@ -161,4 +60,3 @@ void create_str( const char* const use_str ) {
   
   return ;
 }
-
