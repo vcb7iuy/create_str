@@ -1,6 +1,6 @@
 CC			= gcc
 CFLAGS		= -g -Wall
-INCLUDES	= -c
+INCLUDES	= 
 LDFLAGS		= 
 LIBS		= 
 OBJS		= main.o create_str.o
